@@ -1,10 +1,11 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require('mongoose')
+const cookieParser = require("cookie-parser");
 
 //import routes
 const authRoute = require('./routes/auth');
-const cookieParser = require("cookie-parser");
+const taskRoute = require('./routes/tasksToDo')
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 app.get('/save', (req, res) => {
-    res.send("full dick mouth jumping in")
+    res.send("Diamonds")
 })
 
 app.post('/name', (req, res) => {
@@ -25,6 +26,7 @@ app.post('/name', (req, res) => {
 })
 
 app.use('/api/auth', authRoute)
+app.use('/api/tasks', taskRoute)
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
