@@ -3,12 +3,14 @@ const express = require("express");
 const mongoose = require('mongoose')
 
 //import routes
-const authRoute = require('./routes/auth')
+const authRoute = require('./routes/auth');
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(cookieParser());
 
 app.get('/save', (req, res) => {
     res.send("full dick mouth jumping in")
