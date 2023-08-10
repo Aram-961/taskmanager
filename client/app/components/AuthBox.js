@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Link from 'next/link';
+
 
 
 const schema = Yup.object().shape({
@@ -62,9 +62,7 @@ const AuthBox = ({ register }) => {
 
                     <div className="auth__footer">
                         <p className="auth__error">Something went wrong</p>
-                        <Link href="/Register">
-                            <button className="btn btn">{register ? "Register" : "Login"}</button>
-                        </Link>
+                        <button className="btn btn">{register ? "Register" : "Login"}</button>
                     </div>
                 </form>
             </div>
