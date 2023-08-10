@@ -3,6 +3,9 @@
 # Backend
 1. User authentication and authorization to allow multiple users with their tasks.
 
+2. Implement RESTful API endpoints to handle CRUD operations for tasks.
+
+3. MongoDB to store the tasks
 # Usage
 
 1. git clone git@github.com:Aram-961/taskmanager.git
