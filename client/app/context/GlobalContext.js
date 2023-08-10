@@ -61,10 +61,11 @@ export const GlobalProvider = (props) => {
     // get current user
     const getCurrentUser = async () => {
         try {
-            const res = await axios.get('/api/auth/current')
+            const res = await axios.get('http://localhost:5000/api/auth/current')
 
             if (res.data) {
-                const taskRes = await axios.get('/api/tasks/current')
+                const taskRes = await axios.get('http://localhost:5000/api/tasks/current')
+
 
                 if (taskRes.data) {
                     dispatch({ type: "SET_USER", payload: res.data });
@@ -80,9 +81,22 @@ export const GlobalProvider = (props) => {
         }
     }
 
+    // log out
+    const logout = async () => {
+        try {
+            await axios.put('http://localhost:5000/api/auth/logout')
+
+            dispatch({ type: "RESET_USER" });
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const value = {
         ...state,
         getCurrentUser,
+        logout,
     }
     return (
         <GlobalContext.Provider value={value}>

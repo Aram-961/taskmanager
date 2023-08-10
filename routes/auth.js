@@ -66,6 +66,7 @@ router.post("/register", async (req, res) => {
         delete userToReturn.password;
 
         // return the new user
+        
         return res.json(userToReturn);
     } catch (err) {
         console.log(err);
@@ -121,7 +122,8 @@ router.post("/login", async (req, res) => {
             user: userToReturn
         })
 
-        return res.json({ passwordMatch: passwordMatch })
+        // return res.json({ passwordMatch: passwordMatch })
+
     } catch (error) {
         return res.status(500).json(error.message);
     }
@@ -140,7 +142,8 @@ router.get('/current', requiresAuth, (req, res) => {
 
 // @route POST /api/auth/logout
 // @desc Create a new user
-// @access Public
+// @access Private
+
 router.put('/logout', requiresAuth, async (req, res) => {
     try {
         res.clearCookie("access-token")

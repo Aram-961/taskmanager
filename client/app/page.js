@@ -1,10 +1,12 @@
-import Link from "next/link";
+'use client'
+
+import { GlobalProvider } from "./context/GlobalContext";
 import AuthBox from "./components/AuthBox";
 import Header from "./components/Header";
-import { GlobalProvider } from "./context/GlobalContext";
 
 export default function Home() {
-  return (
+  
+  return ( 
     <GlobalProvider>
       <Header />
       <AuthBox />

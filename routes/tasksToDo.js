@@ -44,7 +44,7 @@ router.post("/new", requiresAuth, async (req, res) => {
     }
 });
 
-// @route   POST /api/tasks/current
+// @route   GET /api/tasks/current
 // @desc    Current users tasks
 // @access  Private
 
