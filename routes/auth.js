@@ -50,6 +50,18 @@ router.post("/register", async (req, res) => {
         //save the user to the db
         const savedUser = await newUser.save();
 
+        const payLoad = { userId: savedUser._id };
+
+        const token = jwt.sign(payLoad, process.env.JWT_SECRET, {
+            expiresIn: "7d"
+        })
+
+        res.cookie("access-token", token, {
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "Production"
+        });
+
         const userToReturn = { ...savedUser._doc };
         delete userToReturn.password;
 
@@ -62,9 +74,10 @@ router.post("/register", async (req, res) => {
     }
 });
 
-// @route POST /api/auth/test
+// @route POST /api/auth/login
 // @desc Login user and return a access token
 // @access Public
+
 router.post("/login", async (req, res) => {
     try {
         // check for the user
@@ -114,8 +127,8 @@ router.post("/login", async (req, res) => {
     }
 });
 
-// @route GET /api/auth/test
-// @desc Return the auth user
+// @route GET /api/auth/current
+// @desc Return the current user
 // @access Private
 
 router.get('/current', requiresAuth, (req, res) => {
@@ -123,6 +136,19 @@ router.get('/current', requiresAuth, (req, res) => {
         return res.status(401).send('Unauthorized !')
     }
     return res.json(req.user);
+})
+
+// @route POST /api/auth/logout
+// @desc Create a new user
+// @access Public
+router.put('/logout', requiresAuth, async (req, res) => {
+    try {
+        res.clearCookie("access-token")
+        return res.json({ success: true });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.messge)
+    }
 })
 
 module.exports = router;
